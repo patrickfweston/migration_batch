@@ -1,0 +1,6 @@
+services:
+  migration_batch.commands:
+    class: \Drupal\migration_batch\Commands\FreidaMigrateToolsCommands
+    arguments: ['@plugin.manager.migration', '@date.formatter', '@entity_type.manager', '@keyvalue', '@file_system']
+    tags:
+      - { name: drush.command }

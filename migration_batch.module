@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Contains migration_batch.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function migration_batch_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the migration_batch module.
+    case 'help.page.migration_batch':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('A module to perform CSV migrations in bulk sets.') . '</p>';
+      return $output;
+  }
+}
