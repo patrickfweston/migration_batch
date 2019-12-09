@@ -35,5 +35,6 @@ Rolling back should complete correctly. The smaller batched files add to the mig
 
 ## See also
 1. Writing a script to automate rerunning migrations when out of memory: https://www.mediacurrent.com/blog/memory-management-migrations-drupal-8
+1. Another post on writing a script to automate migrations, but using an approach utilizing the `limit` flag: https://chromatichq.com/blog/migration-memory-management-batching-and-limits
 1. Drupal.org issue about memory reclamation: https://www.drupal.org/node/2701335
 1. Drupal.org issue about batches not being restarted completely: https://www.drupal.org/node/2701121
