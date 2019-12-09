@@ -83,7 +83,7 @@ class MigrateBatchCommands extends MigrateToolsCommands implements SiteAliasMana
    *
    * @usage migrate:import:batch --all
    *   Perform all migrations
-   * @usage migrate:import:batch working_paper --source-file=private://migrations/working-paper-1.json
+   * @usage migrate:import:batch working_paper --source-file=private://migrations/working-paper-1.csv
    *   Import all migrations in working_paper using a specific file
    * @usage migrate:import:batch working_paper --batch-size=100
    *   Import all migrations in working_paper but divide and process the source
