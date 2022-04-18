@@ -38,6 +38,14 @@ class MigrateBatchCommands extends MigrateToolsCommands implements SiteAliasMana
   protected $fileSystem;
 
   /**
+   * The original csv header.
+   *
+   * @var array
+   */
+   */
+  protected $header;
+
+  /**
    * Constructor that sets up dependency injection.
    *
    * @inheritDoc
@@ -45,6 +53,7 @@ class MigrateBatchCommands extends MigrateToolsCommands implements SiteAliasMana
   public function __construct(MigrationPluginManager $migrationPluginManager, DateFormatter $dateFormatter, EntityTypeManagerInterface $entityTypeManager, KeyValueFactoryInterface $keyValue, FileSystemInterface $fileSystem) {
     parent::__construct($migrationPluginManager, $dateFormatter, $entityTypeManager, $keyValue);
     $this->fileSystem = $fileSystem;
+    $this->header = [];
   }
 
   /**
@@ -304,6 +313,8 @@ class MigrateBatchCommands extends MigrateToolsCommands implements SiteAliasMana
         // Close the existing file and create a new one.
         fclose($file_handle);
         $file_handle = $this->createBatchedFile($files, $temp_file_name, $batch_id);
+        // Add the header to the batched file so we can have a valid CSV to parse.
+        fwrite($file_handle, $this->header);
       }
 
       // Write a line to the file.
@@ -365,7 +376,13 @@ class MigrateBatchCommands extends MigrateToolsCommands implements SiteAliasMana
 
     // Return a line at a time.
     while (!feof($file)) {
-      yield fgets($file);
+      $line = fgets($file);
+
+      // We need to fill our global header with the first line of the file.
+      if (empty($this->header)) {
+        $this->header = $line;
+      }
+      yield $line;
     }
 
     // Close the file.
